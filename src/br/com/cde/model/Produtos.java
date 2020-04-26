@@ -20,6 +20,7 @@ public class Produtos {
     private String tipo;
     private String categoria;
     private int quantidade;
+    private String data;
 
     public int getCodigoProduto() {
         return codigoProduto;
@@ -91,6 +92,14 @@ public class Produtos {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
     
     

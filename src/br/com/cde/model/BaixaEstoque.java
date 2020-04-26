@@ -19,6 +19,7 @@ public class BaixaEstoque {
     private String lote;
     private String tipo;
     private String categoria;
+    private String data;
 
     public int getCodigoBaixaProduto() {
         return codigoBaixaProduto;
@@ -82,6 +83,14 @@ public class BaixaEstoque {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
     
     

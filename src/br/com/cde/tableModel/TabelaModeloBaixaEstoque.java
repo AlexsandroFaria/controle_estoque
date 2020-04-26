@@ -23,6 +23,8 @@ public class TabelaModeloBaixaEstoque extends AbstractTableModel{
     public static final int COLUNA_LOTE_PRODUTO = 5;
     public static final int COLUNA_TIPO_PRODUTO = 6;
     public static final int COLUNA_CATEGORIA_PRODUTO = 7;
+    public static final int COLUNA_DATA_PRODUTO = 8;
+    
     public ArrayList<BaixaEstoque>lista;
     
      public TabelaModeloBaixaEstoque(ArrayList<BaixaEstoque> lista) {
@@ -36,7 +38,7 @@ public class TabelaModeloBaixaEstoque extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 8;
+        return 9;
     }
 
     @Override
@@ -50,6 +52,7 @@ public class TabelaModeloBaixaEstoque extends AbstractTableModel{
         if (coluna == COLUNA_LOTE_PRODUTO) return baixaEstoque.getLote();
         if (coluna == COLUNA_TIPO_PRODUTO) return baixaEstoque.getTipo();
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return baixaEstoque.getCategoria();
+        if (coluna == COLUNA_DATA_PRODUTO) return baixaEstoque.getData();
         return "";
     }
 
@@ -63,6 +66,8 @@ public class TabelaModeloBaixaEstoque extends AbstractTableModel{
         if (coluna == COLUNA_LOTE_PRODUTO) return "Lote";
         if (coluna == COLUNA_TIPO_PRODUTO) return "Tipo";
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return "Categoria";
+        if (coluna == COLUNA_DATA_PRODUTO) return "Data";
+        
         return "";
     }
 }

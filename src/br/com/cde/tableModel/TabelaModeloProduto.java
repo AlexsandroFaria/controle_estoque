@@ -24,6 +24,8 @@ public class TabelaModeloProduto extends AbstractTableModel{
     public static final int COLUNA_TIPO_PRODUTO = 6;
     public static final int COLUNA_CATEGORIA_PRODUTO = 7;
     public static final int COLUNA_QUANTIDADE_PRODUTO = 8;
+    public static final int COLUNA_DATA_PRODUTO = 9;
+    
     public ArrayList<Produtos>lista;
 
     public TabelaModeloProduto(ArrayList<Produtos> lista) {
@@ -37,7 +39,7 @@ public class TabelaModeloProduto extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -52,6 +54,7 @@ public class TabelaModeloProduto extends AbstractTableModel{
         if (coluna == COLUNA_TIPO_PRODUTO) return produto.getTipo();
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return produto.getCategoria();
         if (coluna == COLUNA_QUANTIDADE_PRODUTO) return produto.getQuantidade();
+        if (coluna == COLUNA_DATA_PRODUTO) return produto.getQuantidade();
         return "";
     }
 
@@ -66,6 +69,7 @@ public class TabelaModeloProduto extends AbstractTableModel{
         if (coluna == COLUNA_TIPO_PRODUTO) return "Tipo";
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return "Categoria";
         if (coluna == COLUNA_QUANTIDADE_PRODUTO) return "Quantidade";
+        if (coluna == COLUNA_DATA_PRODUTO) return "Data";
         
         return "";
     }
