@@ -31,7 +31,7 @@ public class BaixaEstoqueDAO {
     
     public void cadastrarProdutoBaixa(BaixaEstoque baixaEstoque) {
         try {
-            String sql = "insert into tabela_baixa_estoque (nome_be, descricao_be, tamanho_be, valor_be, lote_be, tipo_be, categoria_be) values (?,?,?,?,?,?,?)";
+            String sql = "insert into tabela_baixa_estoque (nome_be, descricao_be, tamanho_be, valor_be, lote_be, tipo_be, categoria_be, data_be) values (?,?,?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, baixaEstoque.getNome());
             stmt.setString(2, baixaEstoque.getDescricao());
@@ -40,6 +40,7 @@ public class BaixaEstoqueDAO {
             stmt.setString(5, baixaEstoque.getLote());
             stmt.setString(6, baixaEstoque.getTipo());
             stmt.setString(7, baixaEstoque.getCategoria());
+            stmt.setString(8, baixaEstoque.getData());
             stmt.execute();
             stmt.close();
 
@@ -52,7 +53,7 @@ public class BaixaEstoqueDAO {
     
     public ArrayList<BaixaEstoque> listarProdutoPorNome(String pesquisa) {
 
-        String sql = "select * from tabela_baixa_estoque where nome_be like '%" + pesquisa + "%' ";
+        String sql = "select codigo_be, nome_be, descricao_be, tamanho_be, valor_be, lote_be, tipo_be, categoria_be, DATE_FORMAT(data_be,'%d/%m/%Y') as data_be from tabela_baixa_estoque where nome_be like '%" + pesquisa + "%' ";
         ArrayList<BaixaEstoque> lista = new ArrayList<>();
         try {
             Statement st = con.createStatement();
@@ -68,6 +69,7 @@ public class BaixaEstoqueDAO {
                 baixaEstoque.setLote(rs.getString("lote_be"));
                 baixaEstoque.setTipo(rs.getString("tipo_be"));
                 baixaEstoque.setCategoria(rs.getString("categoria_be"));
+                baixaEstoque.setData(rs.getString("data_be"));
                 lista.add(baixaEstoque);
             }
         } catch (SQLException erroSql) {
@@ -78,7 +80,7 @@ public class BaixaEstoqueDAO {
     }
 
     public ArrayList<BaixaEstoque> listarProdutoBaixa() {
-        String sql = "select * from tabela_baixa_estoque";
+        String sql = "select codigo_be, nome_be, descricao_be, tamanho_be, valor_be, lote_be, tipo_be, categoria_be, DATE_FORMAT(data_be,'%d/%m/%Y') as data_be from tabela_baixa_estoque";
         ArrayList<BaixaEstoque> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -93,6 +95,7 @@ public class BaixaEstoqueDAO {
                 baixaEstoque.setLote(rs.getString("lote_be"));
                 baixaEstoque.setTipo(rs.getString("tipo_be"));
                 baixaEstoque.setCategoria(rs.getString("categoria_be"));
+                baixaEstoque.setData(rs.getString("data_be"));
                 
                 lista.add(baixaEstoque);
             }

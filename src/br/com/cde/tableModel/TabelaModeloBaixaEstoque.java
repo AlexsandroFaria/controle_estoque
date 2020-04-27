@@ -66,7 +66,7 @@ public class TabelaModeloBaixaEstoque extends AbstractTableModel{
         if (coluna == COLUNA_LOTE_PRODUTO) return "Lote";
         if (coluna == COLUNA_TIPO_PRODUTO) return "Tipo";
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return "Categoria";
-        if (coluna == COLUNA_DATA_PRODUTO) return "Data";
+        if (coluna == COLUNA_DATA_PRODUTO) return "Data de Baixa";
         
         return "";
     }

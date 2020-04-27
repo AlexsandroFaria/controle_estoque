@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 public class TelaConsultaControleEstoque extends javax.swing.JFrame {
 
     Utilitarios utilitarios = new Utilitarios();
-    
+
     /**
      * Creates new form TelaConsultaControleEstoque
      */
@@ -103,6 +103,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         btRetirarQuantidade = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle de Estoque");
@@ -488,13 +489,10 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNomeProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                                .addComponent(jLabel11)))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -563,6 +561,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
         jButton1.setText("Consultar Baixa de Produtos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -571,6 +570,15 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         });
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/carrinho.png"))); // NOI18N
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/sair.png"))); // NOI18N
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -597,8 +605,11 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
                                     .addComponent(btAdicionarQuantidade)
                                     .addComponent(btRetirarQuantidade, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jButton1)))
+                                .addGap(20, 20, 20)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(jButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addGap(303, 303, 303))))
@@ -624,11 +635,13 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
                             .addComponent(txtRetirarEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btRetirarQuantidade))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jLabel14)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btAdicionarQuantidade, btRetirarQuantidade});
@@ -669,7 +682,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         comboLote.removeAllItems();
         LoteDAO loteDAO = new LoteDAO();
         List<Lote> listaDeLote = loteDAO.listarLote();
-        
+
         for (Lote l : listaDeLote) {
             comboLote.addItem(String.valueOf(l));
         }
@@ -686,7 +699,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         comboTipo.removeAllItems();
         TipoDAO tipoDAO = new TipoDAO();
         List<Tipo> listaDeTipo = tipoDAO.listarTipo();
-        
+
         for (Tipo t : listaDeTipo) {
             comboTipo.addItem(String.valueOf(t));
         }
@@ -703,7 +716,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         comboTamanho.removeAllItems();
         TamanhoDAO tamanhoDAO = new TamanhoDAO();
         List<Tamanho> listaDeTamanho = tamanhoDAO.listarTamanho();
-        
+
         for (Tamanho tam : listaDeTamanho) {
             comboTamanho.addItem(String.valueOf(tam));
         }
@@ -714,7 +727,7 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         comboCategoria.removeAllItems();
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         List<Categoria> listaDeCategoria = categoriaDAO.listarCategoria();
-        
+
         for (Categoria c : listaDeCategoria) {
             comboCategoria.addItem(String.valueOf(c));
         }
@@ -797,16 +810,22 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
                 baixaEstoque.setTipo(comboTipo.getSelectedItem().toString());
                 baixaEstoque.setCategoria(comboCategoria.getSelectedItem().toString());
 
+                Date agora = new Date();
+                SimpleDateFormat dataEua = new SimpleDateFormat("yyyy-MM-dd");
+                String dataMySql = dataEua.format(agora);
+                
+                baixaEstoque.setData(dataMySql);
+
                 BaixaEstoqueDAO bDao = new BaixaEstoqueDAO();
                 bDao.cadastrarProdutoBaixa(baixaEstoque);
 
                 produto.setCodigoProduto(Integer.parseInt(txtCodigo.getText()));
                 dao.excluirProdutoDeBaixa(produto);
-                
+
                 tabelaConsultaEstoque.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutos()));
 
                 utilitarios.limpaTela(jPanel2);
-                
+
             } else if (resultado < 0) {
                 JOptionPane.showMessageDialog(null, "Não é possivel retirar do estoque a quantidade estipulada");
 
@@ -838,6 +857,11 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
         String dataFormatada = dataBr.format(agora);
         txtData.setText(dataFormatada);
     }//GEN-LAST:event_formWindowActivated
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -881,11 +905,14 @@ public class TelaConsultaControleEstoque extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisarTamanho;
     private javax.swing.JButton btPesquisarTipo;
     private javax.swing.JButton btRetirarQuantidade;
+    private javax.swing.JButton btSair;
+    private javax.swing.JButton btSair1;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboLote;
     private javax.swing.JComboBox<String> comboTamanho;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

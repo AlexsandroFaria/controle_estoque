@@ -32,7 +32,7 @@ public class ProdutoDAO {
 
     public void cadastrarProduto(Produtos produto) {
         try {
-            String sql = "insert into tabela_produto (nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto) values (?,?,?,?,?,?,?,?)";
+            String sql = "insert into tabela_produto (nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, data_produto) values (?,?,?,?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, produto.getNome());
             stmt.setString(2, produto.getDescricao());
@@ -42,6 +42,7 @@ public class ProdutoDAO {
             stmt.setString(6, produto.getTipo());
             stmt.setString(7, produto.getCategoria());
             stmt.setInt(8, produto.getQuantidade());
+            stmt.setString(9, produto.getDataAlteracao());
             stmt.execute();
             stmt.close();
 
@@ -52,7 +53,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produtos> listarProdutos() {
-        String sql = "select * from tabela_produto";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -68,6 +69,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException sqlError) {
@@ -121,7 +123,7 @@ public class ProdutoDAO {
 
     public ArrayList<Produtos> listarProdutoPorNome(String pesquisa) {
 
-        String sql = "select * from tabela_produto where nome_produto like '%" + pesquisa + "%' ";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto where nome_produto like '%" + pesquisa + "%' ";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             Statement st = con.createStatement();
@@ -138,6 +140,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException erroSql) {
@@ -148,7 +151,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produtos> listarProdutosPorLote(String lote) {
-        String sql = "select * from tabela_produto where lote_produto like '%" + lote + "%'";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto where lote_produto like '%" + lote + "%' ";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -164,6 +167,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException sqlError) {
@@ -174,7 +178,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produtos> listarProdutosPorTamanho(String tamanho) {
-        String sql = "select * from tabela_produto where tamanho_produto like '%" + tamanho + "%'";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto where tamanho_produto like '%" + tamanho + "%' ";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -190,6 +194,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException sqlError) {
@@ -200,7 +205,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produtos> listarProdutosPorCategoria(String Categoria) {
-        String sql = "select * from tabela_produto where Categoria_produto like '%" + Categoria + "%'";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto where categoria_produto like '%" + Categoria + "%' ";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -216,6 +221,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException sqlError) {
@@ -226,7 +232,7 @@ public class ProdutoDAO {
     }
 
     public ArrayList<Produtos> listarProdutosPorTipo(String tipo) {
-        String sql = "select * from tabela_produto where tipo_produto like '%" + tipo + "%'";
+        String sql = "select codigo_produto, nome_produto, descricao_produto, tamanho_produto, valor_produto, lote_produto, tipo_produto, categoria_produto, quantidade_produto, DATE_FORMAT(data_produto,'%d/%m/%Y') as data_produto from tabela_produto where tipo_produto like '%" + tipo + "%' ";
         ArrayList<Produtos> lista = new ArrayList<>();
         try {
             st = con.createStatement();
@@ -242,6 +248,7 @@ public class ProdutoDAO {
                 produto.setTipo(rs.getString("tipo_produto"));
                 produto.setCategoria(rs.getString("categoria_produto"));
                 produto.setQuantidade(rs.getInt("quantidade_produto"));
+                produto.setDataAlteracao(rs.getString("data_produto"));
                 lista.add(produto);
             }
         } catch (SQLException sqlError) {

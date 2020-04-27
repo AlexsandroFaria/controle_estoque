@@ -54,7 +54,7 @@ public class TabelaModeloProduto extends AbstractTableModel{
         if (coluna == COLUNA_TIPO_PRODUTO) return produto.getTipo();
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return produto.getCategoria();
         if (coluna == COLUNA_QUANTIDADE_PRODUTO) return produto.getQuantidade();
-        if (coluna == COLUNA_DATA_PRODUTO) return produto.getQuantidade();
+        if (coluna == COLUNA_DATA_PRODUTO) return produto.getDataAlteracao();
         return "";
     }
 
@@ -69,7 +69,7 @@ public class TabelaModeloProduto extends AbstractTableModel{
         if (coluna == COLUNA_TIPO_PRODUTO) return "Tipo";
         if (coluna == COLUNA_CATEGORIA_PRODUTO) return "Categoria";
         if (coluna == COLUNA_QUANTIDADE_PRODUTO) return "Quantidade";
-        if (coluna == COLUNA_DATA_PRODUTO) return "Data";
+        if (coluna == COLUNA_DATA_PRODUTO) return "Data Criação / Alteração";
         
         return "";
     }

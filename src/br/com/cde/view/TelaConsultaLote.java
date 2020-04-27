@@ -42,6 +42,7 @@ public class TelaConsultaLote extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboLote = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta por Lote");
@@ -105,6 +106,14 @@ public class TelaConsultaLote extends javax.swing.JFrame {
             }
         });
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/sair.png"))); // NOI18N
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -120,7 +129,9 @@ public class TelaConsultaLote extends javax.swing.JFrame {
                 .addComponent(comboLote, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSair)
+                .addGap(101, 101, 101))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,8 +140,9 @@ public class TelaConsultaLote extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(jButton1)
+                    .addComponent(btSair))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -160,10 +172,10 @@ public class TelaConsultaLote extends javax.swing.JFrame {
 
     private void comboLoteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_comboLoteAncestorAdded
         // TODO add your handling code here:
+        comboLote.removeAllItems();
         LoteDAO loteDAO = new LoteDAO();
         List<Lote> listaDeLote = loteDAO.listarLote();
-        comboLote.removeAll();
-
+        
         for (Lote l : listaDeLote) {
             comboLote.addItem(String.valueOf(l));
         }
@@ -171,9 +183,14 @@ public class TelaConsultaLote extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String pesquisar = (String)comboLote.getSelectedItem();
-        tabelaLote.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorLote(pesquisar)));
+        String lote = (String)comboLote.getSelectedItem();
+        tabelaLote.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorLote(lote)));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +228,7 @@ public class TelaConsultaLote extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSair;
     private javax.swing.JComboBox<String> comboLote;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
