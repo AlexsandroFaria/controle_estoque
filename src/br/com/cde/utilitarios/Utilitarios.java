@@ -5,7 +5,9 @@
  */
 package br.com.cde.utilitarios;
 
+import br.com.cde.view.TelaConsultaBaixaEstoquePorData;
 import java.awt.Component;
+import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,4 +26,6 @@ public class Utilitarios {
         }
     }
     
+    
+     
 }

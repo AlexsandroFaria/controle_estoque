@@ -9,6 +9,7 @@ import br.com.cde.dao.LoteDAO;
 import br.com.cde.dao.ProdutoDAO;
 import br.com.cde.model.Lote;
 import br.com.cde.tableModel.TabelaModeloProduto;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -25,6 +26,15 @@ public class TelaConsultaLote extends javax.swing.JFrame {
         setIconImage(getToolkit().createImage(getClass().getResource("/icones/stock.png")));
     }
 
+     public String calcularValor() {
+        Double soma = 0.0;
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        for (int i = 0; i <= tabelaLote.getRowCount() - 1; i++) {
+            soma += Double.parseDouble(tabelaLote.getValueAt(i, 4).toString());
+        }
+        return df.format(soma);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +53,8 @@ public class TelaConsultaLote extends javax.swing.JFrame {
         comboLote = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta por Lote");
@@ -114,6 +126,11 @@ public class TelaConsultaLote extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Soma total R$:");
+
+        txtValor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,9 +146,15 @@ public class TelaConsultaLote extends javax.swing.JFrame {
                 .addComponent(comboLote, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addGap(101, 101, 101))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,8 +166,12 @@ public class TelaConsultaLote extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(btSair))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,6 +212,7 @@ public class TelaConsultaLote extends javax.swing.JFrame {
         // TODO add your handling code here:
         String lote = (String)comboLote.getSelectedItem();
         tabelaLote.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorLote(lote)));
+        txtValor.setText(calcularValor());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -233,9 +261,11 @@ public class TelaConsultaLote extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaLote;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

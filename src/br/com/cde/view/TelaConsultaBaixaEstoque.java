@@ -7,6 +7,7 @@ package br.com.cde.view;
 
 import br.com.cde.dao.BaixaEstoqueDAO;
 import br.com.cde.tableModel.TabelaModeloBaixaEstoque;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -21,8 +22,19 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
         initComponents();
         setIconImage(getToolkit().createImage(getClass().getResource("/icones/stock.png")));
         tabelaBaixaEstoque.setModel(new TabelaModeloBaixaEstoque(new BaixaEstoqueDAO().listarProdutoBaixa()));
+        txtValor.setText(calcularValor());
     }
 
+    public String calcularValor() {
+        Double soma = 0.0;
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        for (int i = 0; i <= tabelaBaixaEstoque.getRowCount() - 1; i++) {
+            soma += Double.parseDouble(tabelaBaixaEstoque.getValueAt(i, 4).toString());
+        }
+        return df.format(soma);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +52,8 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
         btSair = new javax.swing.JButton();
+        txtValor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Estoques em Baixa");
@@ -101,6 +115,11 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
             }
         });
 
+        txtValor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Soma total R$:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -115,8 +134,14 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
                         .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(83, 83, 83)
                         .addComponent(btSair)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 83, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,8 +152,12 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSair))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,6 +187,7 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
         // TODO add your handling code here:
         String pesquisar = txtPesquisar.getText();
         tabelaBaixaEstoque.setModel(new TabelaModeloBaixaEstoque(new BaixaEstoqueDAO().listarProdutoPorNome(pesquisar)));
+        txtValor.setText(calcularValor());
     }//GEN-LAST:event_txtPesquisarKeyPressed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -204,10 +234,12 @@ public class TelaConsultaBaixaEstoque extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaBaixaEstoque;
     private javax.swing.JTextField txtPesquisar;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

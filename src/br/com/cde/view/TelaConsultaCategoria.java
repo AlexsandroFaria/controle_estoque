@@ -9,6 +9,7 @@ import br.com.cde.dao.CategoriaDAO;
 import br.com.cde.dao.ProdutoDAO;
 import br.com.cde.model.Categoria;
 import br.com.cde.tableModel.TabelaModeloProduto;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -25,6 +26,15 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
         setIconImage(getToolkit().createImage(getClass().getResource("/icones/stock.png")));
     }
 
+     public String calcularValor() {
+        Double soma = 0.0;
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        for (int i = 0; i <= tabelaCategoria.getRowCount() - 1; i++) {
+            soma += Double.parseDouble(tabelaCategoria.getValueAt(i, 4).toString());
+        }
+        return df.format(soma);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,11 +48,13 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaTamanho = new javax.swing.JTable();
+        tabelaCategoria = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         comboCategoria = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta por Categoria");
@@ -70,7 +82,7 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabelaTamanho.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -81,7 +93,7 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tabelaTamanho);
+        jScrollPane1.setViewportView(tabelaCategoria);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Pesquisar Categoria:");
@@ -114,6 +126,11 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Soma total R$:");
+
+        txtValor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,9 +146,15 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
                 .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(btPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addGap(86, 86, 86))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,8 +166,12 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
                     .addComponent(btPesquisar)
                     .addComponent(btSair))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,7 +211,8 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         // TODO add your handling code here:
         String pesquisar = (String)comboCategoria.getSelectedItem();
-        tabelaTamanho.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorCategoria(pesquisar)));
+        tabelaCategoria.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorCategoria(pesquisar)));
+        txtValor.setText(calcularValor());
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -236,9 +264,11 @@ public class TelaConsultaCategoria extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaTamanho;
+    private javax.swing.JTable tabelaCategoria;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

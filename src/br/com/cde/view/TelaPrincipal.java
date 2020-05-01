@@ -57,6 +57,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuEstoque = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         submenuConsultarEstoque = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -209,6 +210,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuEstoque.add(submenuConsultarEstoque);
+
+        jMenuItem8.setText("Consultar baixa de estoque Por Data");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        menuEstoque.add(jMenuItem8);
 
         jMenuBar1.add(menuEstoque);
 
@@ -432,6 +441,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaCadastroProdutos.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        TelaConsultaBaixaEstoquePorData tcbed = new TelaConsultaBaixaEstoquePorData();
+        tcbed.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,6 +493,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     public javax.swing.JLabel labelUsuario;

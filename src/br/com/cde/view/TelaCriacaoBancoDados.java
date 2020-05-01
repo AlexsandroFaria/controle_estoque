@@ -203,6 +203,7 @@ public class TelaCriacaoBancoDados extends javax.swing.JFrame {
                     + "  tipo_produto varchar(45) DEFAULT NULL,\n"
                     + "  categoria_produto varchar(45) DEFAULT NULL,\n"
                     + "  quantidade_produto int(11) DEFAULT NULL,\n"
+                    + "  data_produto date DEFAULT NULL,\n"
                     + "  PRIMARY KEY (codigo_produto)\n"
                     + ")");
 
@@ -236,6 +237,7 @@ public class TelaCriacaoBancoDados extends javax.swing.JFrame {
                     + "  lote_be varchar(45) DEFAULT NULL,\n"
                     + "  tipo_be varchar(45) DEFAULT NULL,\n"
                     + "  categoria_be varchar(45) DEFAULT NULL,\n"
+                    + "  data_be date DEFAULT NULL,\n"
                     + "  PRIMARY KEY (codigo_be)\n"
                     + ")");
 

@@ -5,35 +5,40 @@
  */
 package br.com.cde.view;
 
-import br.com.cde.dao.ProdutoDAO;
-import br.com.cde.dao.TamanhoDAO;
-import br.com.cde.model.Tamanho;
-import br.com.cde.tableModel.TabelaModeloProduto;
+import br.com.cde.dao.BaixaEstoqueDAO;
+import br.com.cde.model.BaixaEstoque;
+import br.com.cde.tableModel.TabelaModeloBaixaEstoque;
 import java.text.DecimalFormat;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
  * @author alafaria
  */
-public class TelaConsultaTamanho extends javax.swing.JFrame {
+public class TelaConsultaBaixaEstoquePorData extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaConsultaLote
+     * Creates new form TelaConsultaBaixaEstoque
      */
-    public TelaConsultaTamanho() {
+    public TelaConsultaBaixaEstoquePorData() {
         initComponents();
         setIconImage(getToolkit().createImage(getClass().getResource("/icones/stock.png")));
+        
+        
     }
 
+    
     public String calcularValor() {
         Double soma = 0.0;
         DecimalFormat df = new DecimalFormat("#,###.00");
-        for (int i = 0; i <= tabelaTamanho.getRowCount() - 1; i++) {
-            soma += Double.parseDouble(tabelaTamanho.getValueAt(i, 4).toString());
+        for (int i = 0; i <= tabelaBaixaEstoque.getRowCount() - 1; i++) {
+            soma += Double.parseDouble(tabelaBaixaEstoque.getValueAt(i, 4).toString());
         }
         return df.format(soma);
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,31 +53,33 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaTamanho = new javax.swing.JTable();
+        tabelaBaixaEstoque = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        comboTamanho = new javax.swing.JComboBox<>();
-        btPesquisar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtDataInicio = new javax.swing.JFormattedTextField();
+        btPesquisar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtDataFim = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta por Tamanho");
+        setTitle("Consulta de Estoques em Baixa por período");
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Consulta por Tamanho");
+        jLabel1.setText("Consulta Baixa estoque por Período");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addContainerGap(483, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +89,9 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabelaTamanho.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tabelaBaixaEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -93,30 +102,11 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tabelaTamanho);
+        jScrollPane1.setViewportView(tabelaBaixaEstoque);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Pesquisar Tamanho:");
-
-        comboTamanho.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboTamanho.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                comboTamanhoAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        btPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
-        btPesquisar.setText("Pesquisar");
-        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisarActionPerformed(evt);
-            }
-        });
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
+        jLabel2.setText("Pesquisar Data:");
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/sair.png"))); // NOI18N
         btSair.setText("Sair");
@@ -126,10 +116,35 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
             }
         });
 
+        txtValor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Soma total R$:");
 
-        txtValor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        try {
+            txtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtDataInicio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("até");
+
+        try {
+            txtDataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtDataFim.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -137,20 +152,24 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(btPesquisar)
+                        .addGap(31, 31, 31)
+                        .addComponent(btSair)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(comboTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                .addComponent(btSair)
-                .addGap(87, 87, 87))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,20 +177,22 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(comboTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSair)
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btPesquisar)
-                    .addComponent(btSair))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(17, 17, 17))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,28 +218,27 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboTamanhoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_comboTamanhoAncestorAdded
-        // TODO add your handling code here:
-        TamanhoDAO tamanhoDAO = new TamanhoDAO();
-        List<Tamanho> listaDeTamanho = tamanhoDAO.listarTamanho();
-        comboTamanho.removeAll();
-
-        for (Tamanho tam : listaDeTamanho) {
-            comboTamanho.addItem(String.valueOf(tam));
-        }
-    }//GEN-LAST:event_comboTamanhoAncestorAdded
-
-    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        // TODO add your handling code here:
-        String pesquisar = (String) comboTamanho.getSelectedItem();
-        tabelaTamanho.setModel(new TabelaModeloProduto(new ProdutoDAO().listarProdutosPorTamanho(pesquisar)));
-        txtValor.setText(calcularValor());
-    }//GEN-LAST:event_btPesquisarActionPerformed
-
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        // TODO add your handling code here:
+         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate data_inicio = LocalDate.parse(txtDataInicio.getText(), format);
+        LocalDate data_fim = LocalDate.parse(txtDataFim.getText(), format);
+
+        BaixaEstoqueDAO dao = new BaixaEstoqueDAO();
+        //List<BaixaEstoque> lista = dao.listarEstoquePorData(data_inicio, data_fim);
+
+        tabelaBaixaEstoque.setModel(new TabelaModeloBaixaEstoque((ArrayList<BaixaEstoque>) new BaixaEstoqueDAO().listarEstoquePorData(data_inicio, data_fim)));
+
+       
+        
+        txtValor.setText(calcularValor());
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,13 +257,13 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaTamanho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaBaixaEstoquePorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaTamanho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaBaixaEstoquePorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaTamanho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaBaixaEstoquePorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaTamanho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaBaixaEstoquePorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -251,7 +271,7 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaConsultaTamanho().setVisible(true);
+                new TelaConsultaBaixaEstoquePorData().setVisible(true);
             }
         });
     }
@@ -259,14 +279,16 @@ public class TelaConsultaTamanho extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSair;
-    private javax.swing.JComboBox<String> comboTamanho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaTamanho;
+    private javax.swing.JTable tabelaBaixaEstoque;
+    private javax.swing.JFormattedTextField txtDataFim;
+    private javax.swing.JFormattedTextField txtDataInicio;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
